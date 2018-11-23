@@ -1,0 +1,59 @@
+function feature = wavelet_feature(img_gray,HSV_image)
+
+%%2x2 feature
+
+ 
+       feature = NaN(3000,7);
+
+
+        [rows,cols] = size(img_gray); 
+
+        
+        %[cA,cH,cV,cD] = dwt2(img_gray,'haar');
+        
+        [cA,cH,cV,cD] = haar_wavelet(img_gray);
+        
+        CA = imresize(cA, [rows cols]);
+        CH = imresize(cH, [rows cols]);
+        CV = imresize(cV, [rows cols]);
+        CD = imresize(cD, [rows cols]);
+        
+        
+        
+      
+       
+              
+       for count = 1:3000; 
+       rand_row =  randi(rows-2,1);
+       rand_col =  randi(cols-2,1);
+       rand_row = rand_row+1;                %% rand will not chosse max or min value of image
+       
+       rand_col = rand_col+1;
+       
+ 
+       
+       
+       point_feature = [CA(rand_row,rand_col) CH(rand_row,rand_col) CV(rand_row,rand_col) CD(rand_row,rand_col) HSV_image(rand_row,rand_col,1) HSV_image(rand_row,rand_col,2) HSV_image(rand_row,rand_col,3)];
+       
+       
+       feature(count,:) = point_feature;
+       
+      
+
+       end
+
+
+
+
+
+
+
+
+
+
+
+end
+
+
+
+

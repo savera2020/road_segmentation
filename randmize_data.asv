@@ -1,0 +1,22 @@
+% data1= load('data');
+% 
+% data = data1.data;
+
+function data1 = randmize_data(data)
+
+
+
+
+l=length(data(:,1));
+
+%index = floor(l*rand(l,1));   % randomize data1 and save it as data.
+
+for i = 1:l
+    
+  index = [index;randi(l)];  
+end
+
+
+data1 = data(index,:);
+
+end

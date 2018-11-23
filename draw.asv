@@ -1,0 +1,20 @@
+
+function img_out = draw_boundary(road_boundary,img_in);
+
+
+for i=1:length(road_boundary)
+    
+    
+    img_in(road_boundary(i,1),road_boundary(i,2))= 255;
+    
+    img_in(road_boundary(i,1),road_boundary(i,2))= 0 ;
+    img_in(road_boundary(i,1),road_boundary(i,2))= 0 ;
+
+
+   img_out  = img_in;
+
+end
+
+
+
+end

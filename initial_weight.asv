@@ -1,0 +1,8 @@
+function W = initialize(L,M)
+
+E = .12;   % it will genrate theta from range {-.12,.12}
+
+theta1 = rand(L_out,L_in)*(2*E)- E;  
+
+
+

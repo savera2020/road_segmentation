@@ -1,0 +1,3 @@
+data1= load('glass.data');
+
+length(data1);

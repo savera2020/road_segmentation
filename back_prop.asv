@@ -1,0 +1,67 @@
+function [J, grad] = back_prop(nn_param, theta1, theta2, input ,y,lambda)
+
+
+theta1 = reshape(nn_params(1:hidden_layer_size * (input_layer_size + 1)), ...
+                 hidden_layer_size, (input_layer_size + 1));
+
+Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
+                 num_labels, (hidden_layer_size + 1));
+
+for i = length(theta2(1,:))
+    
+    Y(:,1) = [y==i];
+end
+
+
+z1 =  input* theta1;          %128x20
+g1 = sigmoid(z1);
+
+z2 = g1*theta2;              % 128 x7 
+g2 = sigmoid(z2);             
+
+
+
+
+J = (-1/m)* (sum(sum(Y.*log(g2) + (1-Y).*(log(1-g2)))));
+
+% fprintf('cost function %f\n',J);
+% 
+% 
+% fprintf('\nProgram paused. Press enter to continue.\n');
+% pause;
+
+
+    reg_of_cost = (lambda/(2*m))*((sum(sum(theta1)))+ (sum(sum(theta2))));     %% calculating each regularized cost of thetas bys
+                                                                               % bys summing all thetas values    
+
+    J = J + reg_of_cost; 
+    
+% fprintf('regularized cost function. %f\n',J);
+% 
+% 
+% fprintf('\nProgram paused. Press enter to continue.\n');
+% pause;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% back propogation 
+
+del3 = g2 - Y;
+
+%fprintf('error the output. %f\n',del3);
+
+
+% fprintf('\nProgram paused. Press enter to continue.\n');
+% pause;
+
+del2 = del3 *theta2'.* sigmoid(z1).*sigmoid(1-z);
+
+grad_of_theta1 = input'*del2;
+
+grad_of_theta2 = g1'*del3;
+
+D1 = (1/m)*(grad_of_theta1 + lambda*theta1);
+D2 = (1/m)*(grad_of_theta2 + lambda*theta2);
+
+
+grad = [D1(:); D2(:)];
+

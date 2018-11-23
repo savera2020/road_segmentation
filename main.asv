@@ -1,0 +1,45 @@
+fprintf('minization of back propogation lagirtms\n')
+
+init_data();
+
+input = tr_in;
+y = tr_out;
+
+m = length(input);
+
+
+Theta1 = initial_weight(20,10);
+Theta2 = initial_weight(7,20);
+
+%% Setup the parameters you will use for this exercise
+input_layer_size  = 10;  % 20x20 Input Images of Digits
+hidden_layer_size = 20;   % 25 hidden units
+num_labels = 7;          % 10 labels, from 1 to 10   
+                          % (note that we have mapped "0" to label 10)
+
+%%
+
+
+nn_params = [Theta1(:); Theta2(:)];
+
+lambda =1;                          
+
+ [J, grad] = back_prop(nn_params, input_layer_size, hidden_layer_size, num_labels, input ,y,lambda);
+ 
+ 
+ fprintf('Program paused. Press enter to continue.\n');
+pause;
+
+options = optimset('MaxIter', 19);       %% number of iteration 
+
+costFunction = @(p) back_prop(p, ...
+                                   input_layer_size, ...
+                                   hidden_layer_size, ...
+                                   num_labels, input, y, lambda);
+                               
+                               
+ [nn_params1, cost] = fmincg(costFunction, nn_params, options);
+ 
+  fprintf('Program paused. Press enter to continue.\n');
+pause;
+                               
